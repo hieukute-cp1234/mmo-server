@@ -43,7 +43,7 @@ app.get("/input", async (req, res) => {
             }
             return res.json([{ product: "A" }, { product: "B" }]);
         } else if (!order_id && !quantity) {
-            return res.json({ sum: 10 });
+            return res.json({ sum: 20 });
         }
     } catch (error) {
         return res
