@@ -70,7 +70,7 @@ app.post("/check-transactions", async (req, res) => {
 
     const extractMemoTransaction = (note) => {
       if (!note) return "";
-      const matchString = note.match(/M3TS_([a-zA-Z0-9]+)/);
+      const matchString = note.match(/M3TS([a-zA-Z0-9]+)/);
 
       if (matchString && matchString[1]) {
         return matchString[1];
