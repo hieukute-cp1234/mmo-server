@@ -59,8 +59,91 @@ app.get("/input", async (req, res) => {
 
 app.post("/check-transactions", async (req, res) => {
   try {
-    console.log("body:", req.body);
-    return res.status(200).json({ ...req.body });
+    const {
+      content,
+      id: transactionID,
+      transferAmount,
+      accountNumber,
+    } = req.body;
+
+    const extractMemoTransaction = (note) => {
+      if (!note) return "";
+      const matchString = note.match(/M3TS_([a-zA-Z0-9]+)/);
+
+      if (matchString && matchString[1]) {
+        return matchString[1];
+      }
+      return "";
+    };
+
+    const userEncode = extractMemoTransaction(content);
+    console.log("userEncode", userEncode);
+
+    const trander = userEncode;
+
+    if (!trander) {
+      return;
+    }
+
+    const history = {
+      user: userId,
+      memo: content || "",
+      status: 1,
+      value: transferAmount / 25946,
+      from: "",
+      to: accountNumber,
+      type: 2,
+      wallet: "BANKING",
+      txn: transactionID,
+    };
+
+    console.log("history", history);
+
+    // const balancePrevious = trander?.balance;
+    // const userUpdate = await usersRepository.updateBalancePlus(
+    //     trander?.balance || 0,
+    //     history.value,
+    //     history.user as unknown as mongoose.Schema.Types.ObjectId
+    // );
+
+    // if (!userUpdate) {
+    //     return;
+    // }
+
+    // const [findAdmin, findCoin] = await Promise.all([
+    //     usersRepository.getUserByRole(3),
+    //     coinRepository.getCoinByName("USDT"),
+    // ]);
+
+    // const baseFlow = {
+    //     userId: findAdmin?._id as unknown as ObjectId,
+    //     orderId: null,
+    //     unit: findCoin?._id as unknown as ObjectId,
+    //     status: EStatusFlow.COMPLETE,
+    // };
+
+    // const inflowIntro: InflowUser = {
+    //     ...baseFlow,
+    //     receiveId: history.user as unknown as ObjectId,
+    //     amount: history.value,
+    //     reason:
+    //         history.type === ETypeTransaction.USDT
+    //             ? EInflowUser.DEPOSIT_USDT
+    //             : EInflowUser.DEPOSIT_BANKING,
+    //     type: ETypeFlow.INFLOW,
+    //     previousBalance: balancePrevious,
+    //     newBalance: roundNumber(
+    //         +(balancePrevious || 0) + +(history.value || 0)
+    //     ),
+    //     fromUserRef: null,
+    // };
+
+    // await flowMoneyRepository.saveInflowUser(inflowIntro);
+
+    // await historiesTransactionRepository.updateHistoriesTransaction({
+    //     historyId: newHistory._id as unknown as string,
+    //     data: { status: EStatusTransaction.DONE },
+    // });
   } catch (error) {
     return res.status(500).json({ error: "Lỗi khi tải tài khoản lên kho." });
   }
