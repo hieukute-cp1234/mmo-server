@@ -66,6 +66,8 @@ app.post("/check-transactions", async (req, res) => {
       accountNumber,
     } = req.body;
 
+    console.log(req.body);
+
     const extractMemoTransaction = (note) => {
       if (!note) return "";
       const matchString = note.match(/M3TS_([a-zA-Z0-9]+)/);
@@ -86,7 +88,7 @@ app.post("/check-transactions", async (req, res) => {
     }
 
     const history = {
-      user: userId,
+      user: trander,
       memo: content || "",
       status: 1,
       value: transferAmount / 25946,
