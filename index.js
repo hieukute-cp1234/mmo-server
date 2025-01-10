@@ -23,19 +23,19 @@ const PORT = 3000;
 //     quantity: Number,
 // });
 // const Inventory = mongoose.model("Inventory", inventorySchema);
-app.get("/input", async (req, res) => {
-    try {
-        const { key } = req.query;
-        // if (key !== "95e6173a-1bc8-40a1-95cf-7498f80a5cfc") {
-        //     return res.status(403).json({ error: "Key không hợp lệ." });
-        // }
-        return res.json({ sum: 10 });
-    } catch (error) {
-        return res
-            .status(500)
-            .json({ error: "Lỗi khi tải tài khoản lên kho." });
-    }
-});
+// app.get("/input", async (req, res) => {
+//     try {
+//         const { key } = req.query;
+//         // if (key !== "95e6173a-1bc8-40a1-95cf-7498f80a5cfc") {
+//         //     return res.status(403).json({ error: "Key không hợp lệ." });
+//         // }
+//         return res.json({ sum: 10 });
+//     } catch (error) {
+//         return res
+//             .status(500)
+//             .json({ error: "Lỗi khi tải tài khoản lên kho." });
+//     }
+// });
 app.get("/input", async (req, res) => {
     try {
         const { key, order_id, quantity } = req.query;
